@@ -1,0 +1,24 @@
+.app {
+
+  text-align: center;
+
+  &__title {
+    border: 1px solid black;
+    border-bottom: 2.5px solid black;
+    padding: 15px 15px;
+  }
+
+  &__prompt,
+  &__responseTitle {
+    margin-top: 60px;
+  }
+
+  &__btn {
+    padding: 20px 210px;
+    background: #3d40eb;
+    color: #FFF;
+    letter-spacing: 3.5px;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,18 @@
+.response {
+
+  &__data {
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid transparent;
+    min-height: 150px;
+    width: 500px;
+    border-radius: 10px;
+    background: #e0e4e4;
+    margin-bottom: 12px;
+
+    >p {
+      margin: 20px;
+      text-align: left;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Responses from './components/Responses';
-import Selector from './components/Selector';
 import styles from '../styles/index.module.scss';
 import { getData } from './utils/getData';
 
@@ -8,6 +7,7 @@ export default function Home() {
   const initialValues = {
     prompt: "",
     history: [],
+    apiSelected: 0,
   };
 
   const [state, setState] = useState(initialValues);
@@ -21,6 +21,12 @@ export default function Home() {
   //   // eslint-disable-next-line
   // }, []);
 
+  const apiSelection = (e) => {
+    const selection = document.querySelector('.selection');
+    setState({ ...state, apiSelected: selection.value });
+    console.log(selection.value);
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setState({
@@ -32,8 +38,13 @@ export default function Home() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    if (state.apiSelected === 0) {
+      alert('Select from dropdown!');
+      return;
+    }
+
     try {
-      const response = await fetch("/api/fixSpelling", {
+      const response = await fetch(`/api/${state.apiSelected}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +73,15 @@ export default function Home() {
       <h1 className={styles.app__title}>Shopify OpenAI Frontend Challenge</h1>
 
       {/* api selector */}
-      <Selector />
+      <h2>Please make a selection below:</h2>
+      <div >
+        <select className="selection" onChange={apiSelection}>
+          <option value="0">Select API:</option>
+          <option value="animalSuperhero">Animal Super Heroes</option>
+          <option value="fixSpelling">Fix Spelling</option>
+          <option value="answerQuestion">Answer Your Question</option>
+        </select>
+      </div >
 
       {/* prompt box */}
       <textarea

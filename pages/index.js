@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/openAPI', {
+      const response = await fetch('http://localhost:3000/api/openAPI', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

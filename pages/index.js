@@ -24,6 +24,7 @@ export default function Home() {
   const apiSelection = (e) => {
     const selection = document.querySelector('.selection');
     setState({ ...state, apiSelected: selection.value });
+    console.log(selection.value);
   }
 
   const handleInputChange = (e) => {
@@ -68,7 +69,7 @@ export default function Home() {
     <div className={styles.app}>
 
       {/* title */}
-      <h1 className={styles.app__title}>Shopify OpenAI Frontend Challenge</h1>
+      <h1 className={styles.app__title}>OpenAI Frontend Challenge</h1>
 
       {/* api selector */}
       <h2>Please make a selection below:</h2>
@@ -88,8 +89,8 @@ export default function Home() {
         className={styles.app__prompt}
         name="prompt"
         label="Prompt"
-        rows="10"
-        cols="70"
+        rows="8"
+        cols="65"
         placeholder="Please enter a prompt...">
       </textarea>
       <br />

@@ -24,7 +24,6 @@ export default function Home() {
   const apiSelection = (e) => {
     const selection = document.querySelector('.selection');
     setState({ ...state, apiSelected: selection.value });
-    console.log(selection.value);
   }
 
   const handleInputChange = (e) => {
@@ -52,7 +51,6 @@ export default function Home() {
         body: JSON.stringify({ prompt: state.prompt }),
       });
       const openAPIResponse = await response.json();
-      console.log(openAPIResponse.result);
 
       const data = [{
         prompt: state.prompt,

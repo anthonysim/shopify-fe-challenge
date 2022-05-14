@@ -12,14 +12,14 @@ export default function Home() {
 
   const [state, setState] = useState(initialValues);
 
-  useEffect(() => {
-    getData().then(res => res.data)
-      .then(data => {
-        setState({ ...state, history: [data] })
-      })
-      .catch(err => console.error(err));
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  //   getData().then(res => res.data)
+  //     .then(data => {
+  //       setState({ ...state, history: [data] })
+  //     })
+  //     .catch(err => console.error(err));
+  //   // eslint-disable-next-line
+  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,22 +33,22 @@ export default function Home() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("/api/fixSpelling", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: state.prompt }),
+        body: JSON.stringify({ prompt: state.prompt }),
       });
-      const data = await response.json();
-      console.log(data.result);
+      const openAPIResponse = await response.json();
+      console.log(openAPIResponse.result);
 
+      const data = [{
+        prompt: state.prompt,
+        response: openAPIResponse.result,
+      }];
 
-      // const data = [{
-      //   prompt: res.data.prompt,
-      //   response: res.data.response,
-      // }];
-      // setState({ prompt: '', history: data.concat(state.history) });
+      setState({ prompt: '', history: data.concat(state.history) });
 
     } catch (err) {
       console.error(err);

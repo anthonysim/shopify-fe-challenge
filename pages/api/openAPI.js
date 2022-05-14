@@ -12,17 +12,18 @@ export default async function (req, res) {
     temperature: 0.6,
   });
 
-  res.status(200).json({ result: completion.data.choices[0].text });
+  const result = completion.data.choices[0].text;
+  res.status(200).json({ result: result });
 }
 
 function generatePrompt(prompt) {
   const Prompt = prompt[0].toUpperCase() + prompt.slice(1).toLowerCase();
 
-  return `Fix the spelling of the prompt.
-Prompt: Tody I wnt to bed.
-Names: Today I went to bed.
-Prompt: Wheeer is the restauuurnt?
-Names: Where is the restaurant?
+  return `Provide an answer to the question that was asked.
+Prompt: How is the weather today?
+Names: 75 degrees sunny with a light breeze
+Prompt: What is the color of the sky?
+Names: blue
 Prompt: ${Prompt}
 Names:`;
 }

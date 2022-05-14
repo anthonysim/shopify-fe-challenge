@@ -1,29 +1,19 @@
 import { useState, useEffect } from 'react';
 import Responses from './components/Responses';
 import styles from '../styles/index.module.scss';
-import { getData } from './utils/getData';
 
 export default function Home() {
   const initialValues = {
     prompt: "",
     history: [],
-    apiSelected: 0,
+    engine: 0,
   };
 
   const [state, setState] = useState(initialValues);
 
-  // useEffect(() => {
-  //   getData().then(res => res.data)
-  //     .then(data => {
-  //       setState({ ...state, history: [data] })
-  //     })
-  //     .catch(err => console.error(err));
-  //   // eslint-disable-next-line
-  // }, []);
-
-  const apiSelection = (e) => {
+  const engineSelection = (e) => {
     const selection = document.querySelector('.selection');
-    setState({ ...state, apiSelected: selection.value });
+    setState({ ...state, engine: selection.value });
     console.log(selection.value);
   }
 
@@ -38,18 +28,18 @@ export default function Home() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (state.apiSelected === 0) {
+    if (state.engine === 0) {
       alert('Select from dropdown!');
       return;
     }
 
     try {
-      const response = await fetch(`/api/${state.apiSelected}`, {
+      const response = await fetch('/api/openAPI', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: state.prompt }),
+        body: JSON.stringify({ prompt: state.prompt, engine: state.engine }),
       });
       const openAPIResponse = await response.json();
 
@@ -72,13 +62,14 @@ export default function Home() {
       <h1 className={styles.app__title}>OpenAI Frontend Challenge</h1>
 
       {/* api selector */}
-      <h2>Please make a selection below:</h2>
+      <h2>Please select an engine:</h2>
       <div >
-        <select className="selection" onChange={apiSelection}>
-          <option value="0">Select API:</option>
-          <option value="animalSuperhero">Animal Super Heroes</option>
-          <option value="fixSpelling">Fix Spelling</option>
-          <option value="answerQuestion">Answer Your Question</option>
+        <select className="selection" onChange={engineSelection}>
+          <option value="0">Select Engine:</option>
+
+          <option value="text-curie-001">text-curie-001</option>
+          <option value="text-babbage-001">text-babbage-001</option>
+          <option value="text-ada-001	">text-ada-001</option>
         </select>
       </div >
 
@@ -91,7 +82,7 @@ export default function Home() {
         label="Prompt"
         rows="8"
         cols="65"
-        placeholder="Please enter a prompt...">
+        placeholder="Please enter a prompt...ex.'What is the capital of California?'">
       </textarea>
       <br />
 
